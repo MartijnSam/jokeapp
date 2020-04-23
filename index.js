@@ -35,7 +35,6 @@ const jokes = [{joke:"What's a Dutch party without bitterballen?", answer: "A wo
 {joke:'What do you call the useless piece of skin on a dick?', answer:"The man", image:'<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Justin_Bieber_Miami_Beach_Police_Department_March_04%2C_2014.jpg/800px-Justin_Bieber_Miami_Beach_Police_Department_March_04%2C_2014.jpg" alt="a random man">'},
 {joke:'What does a cow have four of, that a woman only has two of?', answer:"Legs", image:'<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Cow_udders02.jpg/1280px-Cow_udders02.jpg" alt="a cow udder">'}
 ]
-
 app.get('/joke/:name/:clean/:age', (request, response) => {
 const rhymnow = rhymes(request.params.name)
 const rhymewords = rhymnow.map(function(word){
@@ -169,11 +168,4 @@ function hideShow() {
 
 response.send(render())
 })
-
-const testPage = `<html><head><title>TestPage</title></head><body><h1>TestPage works</h1></body></html>`
-app.get('/test', (request, response) =>
-{console.log(request.path);
-    console.log(request.method);
-response.send(testPage)})
-
 app.listen(port, onListen)
