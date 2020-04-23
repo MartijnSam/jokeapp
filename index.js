@@ -21,7 +21,7 @@ const jokeNumberGenerator = function(clean, age){
 const capitalize = (s) => {
     if (typeof s !== 'string') return ''
     return s.charAt(0).toUpperCase() + s.slice(1)
-  }
+}
 const rhymeBlockGenerator = function(rhymewords){
 if (rhymewords.length <= 0) 
         return `does not seem to rhyme with any English words...` 
@@ -75,8 +75,6 @@ h4 {
     margin: 0;
     padding: 20px 0;
   }
-
-
 .blinking {
     animation:blinkingText 1.2s infinite;
 }
@@ -87,7 +85,6 @@ h4 {
     99%{    color: transparent;  }
     100%{   color: #ffffff;    }
 }
-
 p {
     font-size: 16px;    
     line-height: 2;
@@ -138,14 +135,10 @@ img {
     font-size: 20px;
     color: #ffffff;
  }
-
  .rhyme {
     border: 5px solid #07393c;
  }
-
-
   </style>`
-
 function render(){
     return `<html><head><title>JokeStar Pro 6000+7</title><script>
 function hideShow() {
