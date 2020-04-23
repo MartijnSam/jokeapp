@@ -1,5 +1,10 @@
 const express = require("express");
 const rhymes = require('rhymes')
+const app = express()
+const port = 3000
+function onListen(){
+    console.log(`Listening on :${port}`)
+}
 
 
 function rhyming(name){return rhymes(name)}
@@ -10,19 +15,13 @@ const capitalize = (s) => {
   }
 
 
-const app = express()
-const port = 3000
-function onListen(){
-    console.log(`Listening on :${port}`)
-}
-
 const jokes = [{joke:"What's a Dutch party without bitterballen?", answer: "A worst kaas scenario", image:'<img src="https://www.1limburg.nl/sites/default/files/public/styles/media-paragraph/public/kaasenworst.jpg?itok=eM_geNQr" alt="worst kaas scenario">'},
 {joke: 'What’s brown and sticky?', answer: "A stick", image:'<img src="images/stick.pgn" alt="just a brown stick"'},
-{joke:'joke3'},{joke:'joke4'},{joke:'joke5'}]
+{joke:'joke3'},{joke:'joke4'},{joke:'joke5'},{joke:'joke6'}]
 
 console.log(jokes)
 
-app.get('/joke/:name/:conf/:humor', (request, response) => {console.log('jokepage working');
+app.get('/joke/:name/:clean', (request, response) => {console.log('jokepage working');
 const rhymnow = rhyming(request.params.name)
 const rhymewords = rhymnow.map(function(word){
     return word.word
@@ -34,12 +33,19 @@ if (rhymewords.length <= 0)
 else return `rhymes with:</p>
 <p><div id=rhymewords><ul><li>${rhymewords.join('</li><li>')}</li></ul>`}
 const rhymetext = rhymeblock(rhymewords)
-const jokeblock = function() {
+
+const jokeNumberGenerator = function(clean){
+    if (clean === "yes") return Math.floor(Math.random() * 3);  // returns a random integer from 1 to 3; 
+    else return Math.floor(Math.random() * 3) + 3;
+}
+console.log(`Joke number: ${jokeNumberGenerator(request.params.clean)}`)
+
+function jokeBlockGenerator(number) {
     return`<div id="joke">
-<p><h2>${jokes[0].joke}</h2> <button onclick="hideShow()">Click Me</button></p>
+<p><h2>${jokes[number].joke}</h2> <button onclick="hideShow()">Click Me</button></p>
 <div id="answer" style="display:none">
-<p><h2>${jokes[0].answer}</h2></p>
-<p>${jokes[0].image}</p>
+<p><h2>${jokes[number].answer}</h2></p>
+<p>${jokes[number].image}</p>
 </div>
 </div>`
 }
@@ -54,7 +60,7 @@ function hideShow() {
     }
   }</script></head><body><h1>Welcome</h1><body>
 <p>Hello ${capitalize(request.params.name)},</p>
-<p>${jokeblock()}</p}
+<p>${jokeBlockGenerator(jokeNumberGenerator(request.params.clean))}</p}
 <div id="rhyme"><p>In case you didn't knew, your name ${capitalize(request.params.name)}, ${rhymetext}</p></div></div>
 </body></html>`)})
 
